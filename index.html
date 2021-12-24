@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Cores</title>
+  </head>
+  <body>
+      <table cellpadding="0" cellspacing="0" id="tabela">      
+      </table>
+  </body>
+    <script>
+        const create = element => document.createElement(element)        
+        const selector = selector => document.querySelector(selector)
+
+        for (let l = 0; l < 10; l++) {
+            const linha = create("tr")
+            linha.id = `row${l}`
+            selector(`#tabela`).appendChild(linha)
+        }
+
+        for (let i = 0; i < 10; i++) {
+            for (let j = 0; j < 10; j++) {                
+                const celula = create("td")         
+                selector(`#row${i}`).appendChild(celula)
+            }
+        }
+
+        const column = (coluna) => {
+            let y = 0
+            const blabla = setInterval(() => {   
+                switch(y) {
+                    case 0: 
+                        alpha100(coluna,y)
+                    break;
+                    case 1: 
+                        alpha100(coluna,y)
+                        alpha80(coluna,y)
+                    break;
+                    case 2: 
+                        alpha100(coluna,y)
+                        alpha80(coluna,y)
+                        alpha60(coluna,y)
+                    break;
+                    case 3: 
+                        alpha100(coluna,y)
+                        alpha80(coluna,y)
+                        alpha60(coluna,y)
+                        alpha40(coluna,y)
+                    break;
+                    case 4: 
+                        alpha100(coluna,y)
+                        alpha80(coluna,y)
+                        alpha60(coluna,y)
+                        alpha40(coluna,y)
+                        alpha20(coluna,y)
+                    break;
+                    case 10:
+                        alpha80(coluna,y)
+                        alpha60(coluna,y)
+                        alpha40(coluna,y)
+                        alpha20(coluna,y)
+                        alpha0(coluna,y)
+                    break;
+                    case 11:
+                        alpha60(coluna,y)
+                        alpha40(coluna,y)
+                        alpha20(coluna,y)
+                        alpha0(coluna,y)
+                    break;
+                    case 12:
+                        alpha40(coluna,y)
+                        alpha20(coluna,y)
+                        alpha0(coluna,y)
+                    break;
+                    case 13:
+                        alpha20(coluna,y)
+                        alpha0(coluna,y)
+                    break;
+                    case 14:
+                        alpha0(coluna,y)
+                    break;
+                    default:
+                        alpha100(coluna,y)
+                        alpha80(coluna,y)
+                        alpha60(coluna,y)
+                        alpha40(coluna,y)
+                        alpha20(coluna,y)
+                        alpha0(coluna,y)
+                }         
+                y++         
+                if (y >= 15) {
+                    clearInterval(blabla)
+                }   
+            }, 100) 
+        }
+
+
+        const alpha100 = (indexX, indexY) => {
+            document.querySelector(`#row${indexY}`).children[indexX].className = "alpha100"
+        }
+        const alpha80 = (indexX, indexY) => {
+            document.querySelector(`#row${indexY-1}`).children[indexX].className = "alpha80"
+        }
+        const alpha60 = (indexX, indexY) => {
+            document.querySelector(`#row${indexY-2}`).children[indexX].className = "alpha60"
+        }
+        const alpha40 = (indexX, indexY) => {
+            document.querySelector(`#row${indexY-3}`).children[indexX].className = "alpha40"
+        }
+        const alpha20 = (indexX, indexY) => {
+            document.querySelector(`#row${indexY-4}`).children[indexX].className = "alpha20"
+        }
+        const alpha0 = (indexX, indexY) => {
+            document.querySelector(`#row${indexY-5}`).children[indexX].className = ""
+        }
+               
+        setInterval(() => {
+            var x = Math.floor(Math.random()* 10)
+            column(x)
+        }, 100) 
+        
+    </script>
+  <style>
+    body { 
+        background-color: black;
+    }
+    table {
+        border: 0
+    }
+    table tr td {
+        width:20px;
+        height: 20px;
+        line-height: 20px;
+        background-color: #00ff00;
+        opacity: 0;
+    }
+    .alpha100 {
+        opacity: 1;
+    }
+    .alpha80 {
+        opacity: 0.8;
+    }
+    .alpha60 {
+        opacity: 0.6;
+    }
+    .alpha40 {
+        opacity: 0.4;
+    }
+    .alpha20 {
+        opacity: 0.2;
+    }
+  </style>
+    
+</html>
