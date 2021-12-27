@@ -17,15 +17,18 @@
 
         const create = element => document.createElement(element)        
         const selector = selector => document.querySelector(selector)
+        
+        let linha = create("tr")
+
+        for (let j = 0; j < totalColunas; j++) {                
+            const celula = create("td")         
+            linha.appendChild(celula)
+        }
 
         for (let i = 0; i < totalLinhas; i++) {
-            const linha = create("tr")
-            linha.id = `row${i}`
-            selector(`#tabela`).appendChild(linha)
-            for (let j = 0; j < totalColunas; j++) {                
-                const celula = create("td")         
-                selector(`#row${i}`).appendChild(celula)
-            }
+            const novaLinha = linha.cloneNode(true)
+            novaLinha.id = `row${i}`
+            selector(`#tabela`).appendChild(novaLinha)   
         }
 
         const column = (coluna) => {
@@ -33,62 +36,62 @@
             const blabla = setInterval(() => {   
                 switch(y) {
                     case 0: 
-                        alpha100(coluna,y)
+                        alpha(coluna,y,100)
                     break;
                     case 1: 
-                        alpha100(coluna,y)
-                        alpha80(coluna,y)
+                        alpha(coluna,y,100)
+                        alpha(coluna,y,80)
                     break;
                     case 2: 
-                        alpha100(coluna,y)
-                        alpha80(coluna,y)
-                        alpha60(coluna,y)
+                        alpha(coluna,y,100)
+                        alpha(coluna,y,80)
+                        alpha(coluna,y,60)
                     break;
                     case 3: 
-                        alpha100(coluna,y)
-                        alpha80(coluna,y)
-                        alpha60(coluna,y)
-                        alpha40(coluna,y)
+                        alpha(coluna,y,100)
+                        alpha(coluna,y,80)
+                        alpha(coluna,y,60)
+                        alpha(coluna,y,40)
                     break;
                     case 4: 
-                        alpha100(coluna,y)
-                        alpha80(coluna,y)
-                        alpha60(coluna,y)
-                        alpha40(coluna,y)
-                        alpha20(coluna,y)
+                        alpha(coluna,y,100)
+                        alpha(coluna,y,80)
+                        alpha(coluna,y,60)
+                        alpha(coluna,y,40)
+                        alpha(coluna,y,20)
                     break;
                     case totalLinhas:
-                        alpha80(coluna,y)
-                        alpha60(coluna,y)
-                        alpha40(coluna,y)
-                        alpha20(coluna,y)
-                        alpha0(coluna,y)
+                        alpha(coluna,y,80)
+                        alpha(coluna,y,60)
+                        alpha(coluna,y,40)
+                        alpha(coluna,y,20)
+                        alpha(coluna,y,0)
                     break;
                     case totalLinhas+1:
-                        alpha60(coluna,y)
-                        alpha40(coluna,y)
-                        alpha20(coluna,y)
-                        alpha0(coluna,y)
+                        alpha(coluna,y,60)
+                        alpha(coluna,y,40)
+                        alpha(coluna,y,20)
+                        alpha(coluna,y,0)
                     break;
                     case totalLinhas+2:
-                        alpha40(coluna,y)
-                        alpha20(coluna,y)
-                        alpha0(coluna,y)
+                        alpha(coluna,y,40)
+                        alpha(coluna,y,20)
+                        alpha(coluna,y,0)
                     break;
                     case totalLinhas+3:
-                        alpha20(coluna,y)
-                        alpha0(coluna,y)
+                        alpha(coluna,y,20)
+                        alpha(coluna,y,0)
                     break;
                     case totalLinhas+4:
-                        alpha0(coluna,y)
+                        alpha(coluna,y,0)
                     break;
                     default:
-                        alpha100(coluna,y)
-                        alpha80(coluna,y)
-                        alpha60(coluna,y)
-                        alpha40(coluna,y)
-                        alpha20(coluna,y)
-                        alpha0(coluna,y)
+                        alpha(coluna,y,100)
+                        alpha(coluna,y,80)
+                        alpha(coluna,y,60)
+                        alpha(coluna,y,40)
+                        alpha(coluna,y,20)
+                        alpha(coluna,y,0)
                 }         
                 y++         
                 if (y >= totalLinhas+5) {
@@ -97,30 +100,30 @@
             }, speed) 
         }
 
-
-        const alpha100 = (indexX, indexY) => {
-            document.querySelector(`#row${indexY}`).children[indexX].className = "alpha100"
-        }
-        const alpha80 = (indexX, indexY) => {
-            document.querySelector(`#row${indexY-1}`).children[indexX].className = "alpha80"
-        }
-        const alpha60 = (indexX, indexY) => {
-            document.querySelector(`#row${indexY-2}`).children[indexX].className = "alpha60"
-        }
-        const alpha40 = (indexX, indexY) => {
-            document.querySelector(`#row${indexY-3}`).children[indexX].className = "alpha40"
-        }
-        const alpha20 = (indexX, indexY) => {
-            document.querySelector(`#row${indexY-4}`).children[indexX].className = "alpha20"
-        }
-        const alpha0 = (indexX, indexY) => {
-            document.querySelector(`#row${indexY-5}`).children[indexX].className = ""
+        const alpha = (indexX, indexY, value) => {
+            const subtractor = (() => {
+                switch(value) {
+                    case 100:
+                        return '0'
+                    case 80:
+                        return '1'
+                    case 60: 
+                        return '2'
+                    case 40:
+                        return '3'
+                    case 20:
+                        return '4'
+                    default:
+                        return '5'
+                }
+            })()  
+            document.querySelector(`#row${indexY-subtractor}`).children[indexX].className = value === 0 ? '' : `alpha${value}`
         }
                
         setInterval(() => {
             var x = Math.floor(Math.random()* totalColunas)
             column(x)
-        }, delay) 
+        }, delay)
         
     </script>
   <style>
